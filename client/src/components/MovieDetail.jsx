@@ -10,13 +10,20 @@ export default class MovieDetail extends Component {
 
   static style = {
     display: 'flex',
+    marginBottom: '32px',
   };
 
   static posterStyle = {
-    margin: '20px',
+    // marginRight: '20px',
+    maxHeight: '480px',
   };
 
   static infoStyle = {
+    margin: '32px',
+    maxWidth: '480px',
+  };
+
+  static castStyle = {
 
   };
 
@@ -103,7 +110,7 @@ export default class MovieDetail extends Component {
           style={ MovieDetail.posterStyle }
           src={ `https://image.tmdb.org/t/p/w342/${ poster_path }` }
           />
-        <div>
+        <div style={ MovieDetail.infoStyle }>
           <h1>{ title }</h1>
           <h3>{ tagline }</h3>
           <h4>Released: {
@@ -113,12 +120,14 @@ export default class MovieDetail extends Component {
           }</h4>
           <p>{ overview }</p>
         </div>
-        <div>
+        <div style={ MovieDetail.castStyle }>
           {
-            cast.slice(0, 5).map(castMember => (
+            cast.slice(0, 8).map(castMember => (
               <div>
-                Character: { castMember.character }
-                Name: { castMember.name }
+                { castMember.name }
+                <br />
+                <span style={ { fontStyle: 'italic' } }>{ castMember.character }</span>
+                <hr />
               </div>
             ))
           }
@@ -126,7 +135,7 @@ export default class MovieDetail extends Component {
       </div>
       <div style={ { display: 'flex' } }>
         {
-          similarMovies.slice(0, 3).map(sm => (
+          similarMovies.slice(0, 5).map(sm => (
             <Link to={ `/movies/${ sm.id }` }>
               <MovieListItem
                 movie={ sm }

@@ -11,7 +11,7 @@ export default class MovieList extends Component {
     border: '1px solid #ccc',
     borderRadius: '3px',
     padding: '4px',
-    overflowY: 'auto',
+    overflow: 'hidden',
   }
 
   render() {
@@ -20,7 +20,10 @@ export default class MovieList extends Component {
       <div style={ MovieList.style }>
         {
           movies.map(m => (
-            <MovieListItem movie={ m } />
+            <MovieListItem
+              movie={ m }
+              showDescription
+            />
           ))
         }
       </div>

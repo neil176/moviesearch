@@ -7,7 +7,7 @@ export default class MovieListItem extends Component {
     borderBottom: '1px solid #888',
     margin: '6px',
     paddingBottom: '8px',
-    height: '8%',
+    height: '96px',
   }
   static titleStyle = {
     color: 'white',
@@ -17,11 +17,13 @@ export default class MovieListItem extends Component {
   static descStyle = {
     color: 'white',
     fontSize: '16px',
-    maxHeight: '128px',
+    height: '54px',
     overflow: 'hidden',
   };
   static posterStyle = {
     marginRight: '12px',
+    height: '96px',
+    maxWidth: '96px',
   }
 
   render() {
@@ -31,7 +33,8 @@ export default class MovieListItem extends Component {
         title,
         overview,
         id,
-      }
+      },
+      showDescription = false,
     } = this.props;
 
     // TODO get base url from config
@@ -47,7 +50,10 @@ export default class MovieListItem extends Component {
         />
         <div>
           <div style={ MovieListItem.titleStyle }>{ title }</div>
-          <div style={ MovieListItem.descStyle }>{ overview }</div>
+          {
+            showDescription &&
+            <div style={ MovieListItem.descStyle }>{ overview }</div>
+          }
         </div>
       </Link>
     );

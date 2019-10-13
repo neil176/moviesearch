@@ -15,7 +15,7 @@ import { getPopular, searchByTitle, } from '../api';
 
 export default class SearchContainer extends Component {
   static style = {
-    width: '50%',
+    width: '62%',
     marginTop: '2%',
   };
 
