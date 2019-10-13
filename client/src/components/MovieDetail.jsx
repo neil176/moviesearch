@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
 import { getDetail } from '../api';
 
 export default class MovieDetail extends Component {
@@ -37,6 +39,10 @@ export default class MovieDetail extends Component {
       } = {},
     } = this.props;
 
+    this.getData(movieId);
+  }
+
+  getData(movieId) {
     getDetail(movieId).catch(e => {
       this.setState({
         error: 'Error getting more info about that movie',  
@@ -48,7 +54,27 @@ export default class MovieDetail extends Component {
         credits,
         similarMovies,
       });
-    })
+    });
+  }
+
+  componentDidUpdate(prevProps) {
+    const {
+      match: {
+        params: {
+          movieId: prevMovieId,
+        } = {},
+      } = {},
+    } = prevProps;
+    const {
+      match: {
+        params: {
+          movieId: currentMovieId,
+        } = {},
+      } = {},
+    } = this.props;
+
+
+    if (prevMovieId !== currentMovieId) this.getData(currentMovieId);
   }
 
   render() {
@@ -63,14 +89,17 @@ export default class MovieDetail extends Component {
       credits: {
         cast = [],
       } = {},
+      similarMovies = [],
     } = this.state;
     return (
+      <div>
+
       <div style={ MovieDetail.style }>
         <img
           alt={ title }
           style={ MovieDetail.posterStyle }
           src={ `https://image.tmdb.org/t/p/w342/${ poster_path }` }
-        />
+          />
         <div>
           <h1>{ title }</h1>
           <h3>{ tagline }</h3>
@@ -83,7 +112,7 @@ export default class MovieDetail extends Component {
         </div>
         <div>
           {
-            cast.slice(0, 10).map(castMember => (
+            cast.slice(0, 5).map(castMember => (
               <div>
                 Character: { castMember.character }
                 Name: { castMember.name }
@@ -91,6 +120,18 @@ export default class MovieDetail extends Component {
             ))
           }
         </div>
+      </div>
+      <div style={ { display: 'flex' } }>
+        {
+          similarMovies.slice(0, 3).map(sm => (
+            <Link to={ `/movies/${ sm.id }` }>
+              <div>
+                { sm.title }
+              </div>
+            </Link>
+          ))
+        }
+      </div>
       </div>
     );
   }
