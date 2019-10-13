@@ -175,29 +175,29 @@ async function getPopular(req, res) {
   return res.send(body);
 }
 
+// async function getDetail(req, res) {
+//   const {
+//     params: {
+//       movieId,
+//     } = {},
+//   } = req;
+
+//   console.log(req.params);
+
+//   let body;
+//   try {
+//     body = await tmdbRp({
+//       url: `/movie/${ movieId }`,
+//     });
+//   }
+//   catch (e) {
+//     console.error('[getDetail]', e);
+//   }
+//   if (!body) return res.sendStatus(502);
+//   return res.send(body);
+// }
+
 async function getDetail(req, res) {
-  const {
-    params: {
-      movieId,
-    } = {},
-  } = req;
-
-  console.log(req.params);
-
-  let body;
-  try {
-    body = await tmdbRp({
-      url: `/movie/${ movieId }`,
-    });
-  }
-  catch (e) {
-    console.error('[getDetail]', e);
-  }
-  if (!body) return res.sendStatus(502);
-  return res.send(body);
-}
-
-async function getAllDetails(req, res) {
   const {
     params: {
       movieId,
@@ -214,6 +214,9 @@ async function getAllDetails(req, res) {
       }),
       tmdbRp({
         url: `/movie/${ movieId }/credits`,
+      }),
+      tmdbRp({
+        url: `/movie/${ movieId }/similar`,
       }),
     ]);
   }

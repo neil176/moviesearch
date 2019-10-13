@@ -41,9 +41,12 @@ export default class MovieDetail extends Component {
       this.setState({
         error: 'Error getting more info about that movie',  
       });
-    }).then(movie => {
+    }).then(([movie, credits, similar] = []) => {
+      const { results: similarMovies } = similar;
       this.setState({
         movie,
+        credits,
+        similarMovies,
       });
     })
   }
@@ -56,6 +59,9 @@ export default class MovieDetail extends Component {
         overview,
         poster_path,
         release_date: releaseDate,
+      } = {},
+      credits: {
+        cast = [],
       } = {},
     } = this.state;
     return (
@@ -74,6 +80,16 @@ export default class MovieDetail extends Component {
             : 'Unknown'
           }</h4>
           <p>{ overview }</p>
+        </div>
+        <div>
+          {
+            cast.slice(0, 10).map(castMember => (
+              <div>
+                Character: { castMember.character }
+                Name: { castMember.name }
+              </div>
+            ))
+          }
         </div>
       </div>
     );
