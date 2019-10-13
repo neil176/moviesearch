@@ -9,7 +9,7 @@ function apiFetch(endpoint) {
   }).then(data => data.json());
 }
 
-export function config() {
+export function getConfig() {
   return apiFetch('/config');
 }
 
