@@ -10,6 +10,7 @@ function main() {
   app.use(cors());
   
   // Server the client bundle and public files
+  app.use(express.static(path.join(__dirname, '..', '..', 'client', 'build')));
 
   
   // Support healthchecking
@@ -20,12 +21,7 @@ function main() {
   app.get('/api/searchByTitle', handlers.searchByTitle);
   app.get('/api/getPopular', handlers.getPopular);
   app.get('/api/movies/:movieId', handlers.getDetail);
-  
-  app.use('*', express.static(path.join(__dirname, '..', '..', 'client', 'build')));
-  // reroute any unspecified route
-  // app.get('*', (req, res) => {
-  //   return res.redirect('/');
-  // })
+
 
   // Run the app
   app.listen(3176, () => console.log('App listening on port 3176'));

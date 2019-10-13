@@ -114,12 +114,14 @@ function formatConfig(configBody) {
       poster_sizes: posterSizes = [],
     } = {},
   } = configBody;
-  const [minPosterSize] = posterSizes;
+  const [posterThumbnailSize = '',,, posterDetailSize = ''] = posterSizes;
+
 
   return {
     baseUrl,
-    minPosterSize,
-  }
+    posterThumbnailSize,
+    posterDetailSize,
+  };
 }
 
 async function config(req, res) {
@@ -170,7 +172,6 @@ async function getPopular(req, res) {
     console.error('[getPopular]', e);
   }
   if (!body) return res.sendStatus(502);
-  // console.log('[getPopular] Returning body', body);
   return res.send(body);
 }
 
@@ -190,10 +191,36 @@ async function getDetail(req, res) {
     });
   }
   catch (e) {
-    // console.error('[getPopular]', e);
+    console.error('[getDetail]', e);
   }
   if (!body) return res.sendStatus(502);
-  // console.log('[getPopular] Returning body', body);
+  return res.send(body);
+}
+
+async function getAllDetails(req, res) {
+  const {
+    params: {
+      movieId,
+    } = {},
+  } = req;
+
+  console.log(req.params);
+
+  let body;
+  try {
+    body = await Promise.all([
+      tmdbRp({
+        url: `/movie/${ movieId }`,
+      }),
+      tmdbRp({
+        url: `/movie/${ movieId }/credits`,
+      }),
+    ]);
+  }
+  catch (e) {
+    console.error('[getAllDetails]', e);
+  }
+  if (!body) return res.sendStatus(502);
   return res.send(body);
 }
 

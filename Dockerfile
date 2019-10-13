@@ -1,21 +1,11 @@
-# FROM node:12 AS builder
-# # Copy client source
-# COPY ./client /app/client
-# WORKDIR /app/client
-# # Install dependencies
-# RUN npm install
-# # Build client bundle
-# RUN npm run build
-
-# Separate development image
-# FROM node:12 AS development
-# COPY . /app
-# WORKDIR /app/client
-# RUN npm install
-# RUN npm run build
-# WORKDIR /app/server
-# RUN npm install
-
+FROM node:12 AS builder
+# Copy client source
+COPY ./client /app/client
+WORKDIR /app/client
+# Install dependencies
+RUN npm install
+# Build client bundle
+RUN npm run build
 
 # Build production image (copying in client bundle)
 FROM node:12-alpine AS production
@@ -23,7 +13,7 @@ FROM node:12-alpine AS production
 RUN adduser -D apprunner
 USER apprunner
 # Copy build and public folders from our intermediate container
-# COPY --from=builder /app/client/build /home/apprunner/app/client/build 
+COPY --from=builder /app/client/build /home/apprunner/app/client/build 
 # Copy in the server source 
 COPY ./server /home/apprunner/app/server
 WORKDIR /home/apprunner/app/server
