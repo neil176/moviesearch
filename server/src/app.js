@@ -10,7 +10,8 @@ function main() {
   app.use(cors());
   
   // Server the client bundle and public files
-  app.use(express.static(path.join(__dirname, '..', '..', 'client', 'build')));
+  const staticRoot = path.join(__dirname, '..', '..', 'client', 'build');
+  app.use(express.static(staticRoot));
 
   
   // Support healthchecking
@@ -21,6 +22,11 @@ function main() {
   app.get('/api/searchByTitle', handlers.searchByTitle);
   app.get('/api/getPopular', handlers.getPopular);
   app.get('/api/movies/:movieId', handlers.getDetail);
+
+  // support client refreshing from non root path and link sharing to endpoints such as /movies/123
+  app.get('*', (req, res) => {
+    return res.sendFile(path.join(staticRoot, 'index.html'));
+  });
 
 
   // Run the app
