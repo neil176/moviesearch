@@ -1,0 +1,41 @@
+body {
+  background-color: #282c34;
+  /* height: 100%;
+   */
+  overflow: hidden;
+}
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: lightgrey;
+}
+
+a {
+  color: lightgreen;
+  text-decoration: none;
+}
+a:hover {
+  color: lightskyblue;
+  text-decoration: underline;
+}
+
+
+
+/* unvisited link */
+/* a:link {
+  color: red;
+} */
+
+/* visited link */
+/* a:visited {
+  color: green;
+} */
+
+/* mouse over link */
+
+/* selected link */
+/* a:active {
+  color: blue;
+} */
