@@ -14,17 +14,12 @@ export default class MovieDetail extends Component {
   };
 
   static posterStyle = {
-    // marginRight: '20px',
     maxHeight: '480px',
   };
 
   static infoStyle = {
     margin: '32px',
     maxWidth: '480px',
-  };
-
-  static castStyle = {
-
   };
 
   static formatDate(dateString) {
