@@ -23,6 +23,7 @@ export default class SearchContainer extends Component {
     movies: [],
     query: '',
     error: null,
+    config: {},
   };
 
   handleResults = (data = {}) => {

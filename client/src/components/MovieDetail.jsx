@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 import { getDetail } from '../api';
 
+import MovieListItem from './MovieListItem';
+
 export default class MovieDetail extends Component {
   state = {};
 
@@ -91,6 +93,7 @@ export default class MovieDetail extends Component {
       } = {},
       similarMovies = [],
     } = this.state;
+
     return (
       <div>
 
@@ -125,9 +128,9 @@ export default class MovieDetail extends Component {
         {
           similarMovies.slice(0, 3).map(sm => (
             <Link to={ `/movies/${ sm.id }` }>
-              <div>
-                { sm.title }
-              </div>
+              <MovieListItem
+                movie={ sm }
+              />
             </Link>
           ))
         }
