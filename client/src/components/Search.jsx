@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 export default class Search extends Component {
   state = {
     query: '',
-    lastSubmission: '',
   };
 
   static style = {
@@ -33,7 +32,6 @@ export default class Search extends Component {
     this.input.value = '';
     this.setState({
       query: '',
-      lastSubmission: currentQuery,
     });
     history.push('/');
   }
@@ -51,7 +49,7 @@ export default class Search extends Component {
   handleSubmit = () => this.clearAndSearch();
 
   render() {
-    const { lastSubmission } = this.state || {};
+
     return (
       <div style={ Search.style }>
         <input
@@ -60,10 +58,7 @@ export default class Search extends Component {
           onKeyDown={ this.handleKeyDown }
           onChange={ this.handleChange }
         />
-        { lastSubmission
-          ? <p>Results for { lastSubmission }</p>
-          : <p>Search here for your favorite movie!</p>
-        }
+        <p>Search here for your favorite movie!</p>
       </div>
     );
   }
