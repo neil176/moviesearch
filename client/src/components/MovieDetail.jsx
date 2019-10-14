@@ -96,6 +96,15 @@ export default class MovieDetail extends Component {
       similarMovies = [],
     } = this.state;
 
+    const {
+      config,
+      config: {
+        baseUrl,
+        posterDetailSize,
+        // posterThumbnailSize,
+      } = {},
+    } = this.props;
+
     return (
       <div>
 
@@ -103,7 +112,7 @@ export default class MovieDetail extends Component {
         <img
           alt={ title }
           style={ MovieDetail.posterStyle }
-          src={ `https://image.tmdb.org/t/p/w342/${ poster_path }` }
+          src={ `${ baseUrl }${ posterDetailSize }${ poster_path }` }
           />
         <div style={ MovieDetail.infoStyle }>
           <h1>{ title }</h1>
@@ -133,6 +142,7 @@ export default class MovieDetail extends Component {
           similarMovies.slice(0, 5).map(sm => (
             <Link to={ `/movies/${ sm.id }` }>
               <MovieListItem
+                config={ config }
                 movie={ sm }
               />
             </Link>

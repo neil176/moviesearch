@@ -35,9 +35,12 @@ export default class MovieListItem extends Component {
         id,
       },
       showDescription = false,
+      config: {
+        baseUrl,
+        posterThumbnailSize,
+      } = {},
     } = this.props;
 
-    // TODO get base url from config
     return (
       <Link
         to={ `/movies/${ id }` }
@@ -45,7 +48,7 @@ export default class MovieListItem extends Component {
       >
         <img
           alt={ title }
-          src={ `https://image.tmdb.org/t/p/w92${ posterUrl }` }
+          src={ `${ baseUrl }${ posterThumbnailSize }${ posterUrl }` }
           style={ MovieListItem.posterStyle }
         />
         <div>

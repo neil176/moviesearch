@@ -128,7 +128,7 @@ async function config(req, res) {
   let body;
   try {
     body = await tmdbRp({
-      url: '',
+      url: '/configuration',
     })
   }
   catch (e) {

@@ -15,12 +15,13 @@ export default class MovieList extends Component {
   }
 
   render() {
-    const { movies } = this.props;
+    const { movies, config } = this.props;
     return (
       <div style={ MovieList.style }>
         {
           movies.map(m => (
             <MovieListItem
+              config={ config }
               movie={ m }
               showDescription
             />

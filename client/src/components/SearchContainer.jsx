@@ -11,9 +11,15 @@ import MovieList from './MovieList';
 import MovieDetail from './MovieDetail';
 import ErrorMessage from './ErrorMessage';
 
-import { getPopular, searchByTitle, } from '../api';
+import { getPopular, searchByTitle, getConfig, } from '../api';
 
 export default class SearchContainer extends Component {
+  static DEFAULT_CONFIG = {
+    baseUrl: 'https://image.tmdb.org/t/p/',
+    posterThumbnailSize: 'w92',
+    posterDetailSize: 'w342',
+  };
+
   static style = {
     width: '62%',
     marginTop: '2%',
@@ -35,6 +41,19 @@ export default class SearchContainer extends Component {
   }
 
   componentDidMount() {
+    getConfig()
+      .catch(() => {
+        // attempt to use defaults since these seem unlikely to change regularly
+        // and, at worst, break image links on a failure to fetch config
+        this.setState({
+          config: SearchContainer.DEFAULT_CONFIG,
+        });
+      })
+      .then(config => {
+        this.setState({
+          config,
+        });
+      })
     getPopular()
       .catch(() => this.setState({
           error: 'Error retrieving popular movies',
@@ -50,14 +69,8 @@ export default class SearchContainer extends Component {
       .then(this.handleResults);
   }
 
-  getBaseImageUrl(thumbnail = true) {
-    // const { }
-    // extract min width iff thumbnail
-    return '';
-  }
-
   render() {
-    const { movies, error } = this.state;
+    const { movies, error, config } = this.state;
 
     return (
       <div style={ SearchContainer.style }>
@@ -71,9 +84,19 @@ export default class SearchContainer extends Component {
         />
         { error && <ErrorMessage msg={ error } /> }
         <Switch>
-          <Route path="/movies/:movieId" component={ MovieDetail } />
+          <Route path="/movies/:movieId"
+            children={ ({ match }) => (
+              <MovieDetail
+                match={ match }
+                config={ config }
+              /> 
+            ) }
+          />
           <Route>
-            <MovieList movies={ movies } />
+            <MovieList
+              movies={ movies }
+              config={ config }
+            />
           </Route>
         </Switch>
       </div>
