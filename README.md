@@ -11,7 +11,7 @@
 With docker
 
 - `docker/build.sh`
-- `TMDB_API_KEY="your_api_key_here" docker/run.sh`
+- `TMDB_API_KEY='your_api_key_here' docker/run.sh`
 - Visit [localhost:3176](http://localhost:3176)
 
 
@@ -23,7 +23,7 @@ Without docker (Tested with node v12.9.0 on ubuntu 18.04, but expect compatibili
 - `npm run build`
 - `cd ../server`
 - `npm install`
-- `node src/app.js`
+- `TMDB_API_KEY='your_api_key_here' node src/app.js`
 - Visit [localhost:3176](http://localhost:3176)
 
 
