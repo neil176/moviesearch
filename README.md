@@ -2,8 +2,8 @@
 
 ### Description
 
-A server proxying requests to the movie db api and serving static files
-A frontend that allows users to view current popular movies, search for movies, and see detailed info about any individual movie
+- A server proxying requests to the movie db api and serving static files
+- A frontend that allows users to view current popular movies, search for movies, and see detailed info about any individual movie
 
 
 ### To Run
@@ -12,7 +12,7 @@ With docker
 
 - `docker/build.sh`
 - `TMDB_API_KEY="your_api_key_here" docker/run.sh`
-- Visit [localhost:3176](localhost:3176)
+- Visit [localhost:3176](http://localhost:3176)
 
 
 
@@ -21,13 +21,11 @@ Without docker (Tested with node v12.9.0 on ubuntu 18.04, but expect compatibili
 - `cd client`
 - `npm install`
 - `npm run build`
-- `cd server`
+- `cd ../server`
 - `npm install`
 - `node src/app.js`
-- Visit localhost:3176
+- Visit [localhost:3176](http://localhost:3176)
 
-**Note:** To run for development, instead of `npm run build`, use `npm run start` and instead visit localhost:3000
-This pattern of development does not appropriately match the production environment but is useful for the hot-rebuild of client-side code
 
 ### Features that should come next
 
